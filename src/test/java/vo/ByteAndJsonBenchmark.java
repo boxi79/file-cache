@@ -118,9 +118,9 @@ public class ByteAndJsonBenchmark {
 		JSONObject j = new JSONObject(jString);
 		obj.setName(j.getString("name"));
 		obj.setId(j.getInt("id"));
-		obj.setbValue((Byte)j.get("byte"));
+//		obj.setbValue((Byte)j.get("byte"));
 		obj.setdValue(j.getDouble("double"));
-		obj.setcValue((Character)j.get("char"));
+//		obj.setcValue((Character)j.get("char"));
 		obj.setlValue(j.getLong("long"));
 	}
 }
