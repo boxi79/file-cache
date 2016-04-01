@@ -13,6 +13,10 @@ public class TransInputStream {
 		dIn = new DataInputStream(bIn);
 	}
 	
+	public boolean getBoolean() throws IOException {
+		return dIn.readBoolean();
+	}
+	
 	public int getInt() throws IOException {
 		return dIn.readInt();
 	}

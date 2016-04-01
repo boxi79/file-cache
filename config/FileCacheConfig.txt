@@ -1,0 +1,2 @@
+AccessDataType=1
+# 1. byte[] 2. String
