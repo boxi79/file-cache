@@ -6,25 +6,20 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class FileCacheConfigLoader {
-	private static FileCacheConfigLoader instance = new FileCacheConfigLoader();
-	
+	private static final String ACCESS_FILE = "AccessFile";
 	private static final String ACCESS_DATA_TYPE = "AccessDataType";
 	
 	private String sConfigPath;
 	private Properties properties;
 	private int iAccessDataType;
+	private boolean bAccessFile;
 	
-	public static FileCacheConfigLoader getInstance() {
-		return instance;
-	}
-	
-	private FileCacheConfigLoader() {
-	}
-	
-	public void init(String sConfigPath) throws NumberFormatException, FileNotFoundException, IOException, Exception {
+	public FileCacheConfigLoader(String sConfigPath) throws NumberFormatException, FileNotFoundException, IOException, Exception {
 		this.sConfigPath = sConfigPath;
 		
 		loadProperties();
+		
+		readAccessFile();
 		
 		readAccessDataType();
 	}
@@ -34,6 +29,14 @@ public class FileCacheConfigLoader {
 		FileInputStream fIn = new FileInputStream(sConfigPath);
 		properties.load(fIn);
 		fIn.close();
+	}
+	
+	private void readAccessFile() throws Exception {
+		String sAccessFile = properties.getProperty(ACCESS_FILE);
+		if(sAccessFile == null) {
+			throw new Exception(getExceptionDesc(ACCESS_FILE));
+		}
+		bAccessFile = Boolean.getBoolean(sAccessFile);
 	}
 	
 	private void readAccessDataType() throws NumberFormatException, Exception {
@@ -47,6 +50,10 @@ public class FileCacheConfigLoader {
 		} catch(NumberFormatException e) {
 			throw e;
 		}
+	}
+	
+	public boolean getAccessFile() {
+		return bAccessFile;
 	}
 	
 	public int getAccessDataType() {
