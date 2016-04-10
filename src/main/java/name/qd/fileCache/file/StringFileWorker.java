@@ -2,10 +2,11 @@ package name.qd.fileCache.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class StringFileWorker implements IFileWorker {
 
-	public void write(Object object, File file) throws FileNotFoundException {
+	public void write(Object object, File file, int iIndex) throws IOException {
 		// TODO Auto-generated method stub
 		
 	}
