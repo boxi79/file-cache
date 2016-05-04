@@ -2,9 +2,9 @@ package vo;
 
 import java.nio.ByteBuffer;
 
-import name.qd.fileCache.cache.IFileStorageParser;
+import name.qd.fileCache.cache.IFileCacheObject;
 
-public class TestObject implements IFileStorageParser {
+public class TestObject implements IFileCacheObject {
 	private String name;
 	private int id;
 	private long lValue;

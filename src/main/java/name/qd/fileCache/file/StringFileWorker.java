@@ -8,11 +8,13 @@ public class StringFileWorker implements IFileWorker {
 
 	public int write(Object object, File file, int iIndex) throws IOException {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
-	public Object read(File file) throws FileNotFoundException {
+
+	@Override
+	public Object read(File file, int iIndex) throws FileNotFoundException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }
