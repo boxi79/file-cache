@@ -8,9 +8,12 @@ import name.qd.fileCache.constant.AccessDataType;
 public class FileStorage {
 	private static Logger log = LoggerFactory.getLogger(FileStorage.class);
 	
+	private String sFilePath;
 	private IFileWorker fileWorker;
 	
-	public FileStorage(int iAccessDataType) {
+	public FileStorage(String sFilePath, int iAccessDataType) {
+		this.sFilePath = sFilePath;
+		
 		switch(iAccessDataType) {
 		case AccessDataType.BYTE_ARRAY:
 			fileWorker = new ByteArrayFileWorker();

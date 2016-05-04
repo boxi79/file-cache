@@ -1,10 +1,9 @@
 package name.qd.fileCache.file;
 
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 public class ByteArrayFileWorkerTest {
 	public static void main(String[] s) {
@@ -23,7 +22,8 @@ public class ByteArrayFileWorkerTest {
 		}
 		
 		try {
-			worker.write("ABC«¢«¢".getBytes("UTF-8"), file, 0);
+			int iNewIndex = worker.write("ABCã„Žã„Ž".getBytes("UTF-8"), file, 0);
+			System.out.println(iNewIndex);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -31,14 +31,12 @@ public class ByteArrayFileWorkerTest {
 		FileWriter fw;
 		try {
 			fw = new FileWriter("Writer");
-			fw.write("ABC£}£}");
+			fw.write("ABCï¿½ï¿½îŽ’ï¿½ï¿½");
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 }

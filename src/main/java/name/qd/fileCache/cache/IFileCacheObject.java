@@ -1,6 +1,6 @@
-package name.qd.fileCache.file.trans;
+package name.qd.fileCache.cache;
 
-public interface IFileStorageParser {
+public interface IFileCacheObject {
 	public Object parseToFileFormat();
 	public void toValueObject(Object object);
 }

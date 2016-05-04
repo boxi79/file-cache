@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public interface IFileWorker {
 
-	public void write(Object object, File file, int iIndex) throws IOException ;
-	public void read(File file) throws FileNotFoundException ;
+	// return new index
+	public int write(Object object, File file, int iIndex) throws IOException ;
+	public Object read(File file, int iIndex) throws FileNotFoundException ;
 }
