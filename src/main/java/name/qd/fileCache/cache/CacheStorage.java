@@ -8,4 +8,11 @@ public class CacheStorage {
 	
 	public CacheStorage() {
 	}
+	
+	public CacheManager getCacheInstance(String sCacheName) {
+		if(!map.containsKey(sCacheName)) {
+			map.put(sCacheName, new CacheManager());
+		}
+		return map.get(sCacheName);
+	}
 }

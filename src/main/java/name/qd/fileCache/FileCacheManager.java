@@ -24,7 +24,6 @@ public class FileCacheManager {
 		}
 		
 		cacheStorage = new CacheStorage();
-		
 		fileStorage = new FileStorage(configLoader.getFilePath(), configLoader.getAccessDataType());
 		
 		logger.info("Loading file to cache...");
