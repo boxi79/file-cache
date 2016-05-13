@@ -3,7 +3,6 @@ package vo;
 import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONObject;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Mode;
@@ -22,8 +21,6 @@ public class ByteAndJsonBenchmark {
 	private TestObject obj = new TestObject();
 	private ByteBuffer buffer;
 	private ByteBuffer bufferForRead;
-	private JSONObject json = new JSONObject();
-	private JSONObject jobj;
 	private String jString;
 
 	public static void main(String[] s) throws RunnerException {
@@ -53,16 +50,6 @@ public class ByteAndJsonBenchmark {
 		
 		buffer = ByteBuffer.allocate(512);
 		
-		jobj = new JSONObject().
-				put("name", testObj.getName()).
-				put("id", testObj.getId()).
-				put("byte", testObj.getbValue()).
-				put("char", testObj.getcValue()).
-				put("double", testObj.getdValue()).
-				put("long", testObj.getlValue());
-		
-		jString = jobj.toString();
-		
 		bufferForRead = ByteBuffer.allocate(512);
 		bufferForRead.putInt(testObj.getName().length());
 		bufferForRead.put(testObj.getName().getBytes());
@@ -89,13 +76,6 @@ public class ByteAndJsonBenchmark {
 	
 	@Benchmark
 	public void parseToJSON() {
-		json.
-		put("name", testObj.getName()).
-		put("id", testObj.getId()).
-		put("byte", testObj.getbValue()).
-		put("char", testObj.getcValue()).
-		put("double", testObj.getdValue()).
-		put("long", testObj.getlValue());
 //		json.toString();
 	}
 	
@@ -115,12 +95,5 @@ public class ByteAndJsonBenchmark {
 	
 	@Benchmark
 	public void jsonToObj() {
-		JSONObject j = new JSONObject(jString);
-		obj.setName(j.getString("name"));
-		obj.setId(j.getInt("id"));
-//		obj.setbValue((Byte)j.get("byte"));
-		obj.setdValue(j.getDouble("double"));
-//		obj.setcValue((Character)j.get("char"));
-		obj.setlValue(j.getLong("long"));
 	}
 }

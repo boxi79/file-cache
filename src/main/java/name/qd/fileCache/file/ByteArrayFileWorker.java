@@ -1,38 +1,42 @@
 package name.qd.fileCache.file;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ByteArrayFileWorker implements IFileWorker {
-
-	public int write(Object object, File file, int iIndex) throws IOException {
-		byte[] bData = (byte[]) object;
-		FileOutputStream fOut = new FileOutputStream(file);
-		bData = toFileFormat(bData);
-		try {
-			fOut.write(bData, iIndex, bData.length);
-		} finally {
-			fOut.close();
-		}
-		return iIndex + bData.length;
-	}
-
-	public Object read(File file, int iIndex) {
-		return null;
-	}
-
-	private byte[] toFileFormat(byte[] bData) {
-		byte[] bCombine = new byte[bData.length + 4];
-		byte[] bLength = ByteBuffer.allocate(4).putInt(bData.length).array();
-		System.arraycopy(bLength, 0, bCombine, 0, 4);
-		System.arraycopy(bData, 0, bCombine, 4, bData.length);
-		return bCombine;
-	}
+class ByteArrayFileWorker implements IFileWorker {
 	
-	private byte[] toCacheFormet(byte[] bData) {
-		return null;
+	public void write(String sFilePath, Object object, int iIndex, int iLength) throws IOException {
+		byte[] bData = (byte[]) object;
+		bData = toFileFormat(bData, iLength);
+		try (RandomAccessFile rFile = new RandomAccessFile(sFilePath, "rws")) {
+			rFile.seek(iIndex * iLength);
+			rFile.write(bData);
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	public List read(String sFilePath, int iLength) throws IOException {
+		File file = new File(sFilePath);
+		List<byte[]> lst = new ArrayList<byte[]>();
+		try (FileInputStream fIn = new FileInputStream(file);) {
+			int iDataLength = fIn.available();
+			int iDataCount = iDataLength / iLength;
+			for(int i = 0 ; i < iDataCount ; i++) {
+				byte[] bData = new byte[iLength];
+				fIn.read(bData);
+				lst.add(bData);
+			}
+		}
+		return lst;
+	}
+
+	private byte[] toFileFormat(byte[] bData, int iLength) {
+		byte[] bCombine = new byte[iLength];
+		System.arraycopy(bData, 0, bCombine, 0, bData.length);
+		return bCombine;
 	}
 }

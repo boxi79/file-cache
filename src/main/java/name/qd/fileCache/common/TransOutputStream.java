@@ -1,4 +1,4 @@
-package name.qd.fileCache.file.trans;
+package name.qd.fileCache.common;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;

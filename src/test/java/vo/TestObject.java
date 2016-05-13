@@ -78,4 +78,9 @@ public class TestObject implements IFileCacheObject {
 	public void toValueObject(Object object) {
 		
 	}
+
+	@Override
+	public int getDataLength() {
+		return 255;
+	}
 }

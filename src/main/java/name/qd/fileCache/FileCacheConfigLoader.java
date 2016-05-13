@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import name.qd.fileCache.constant.AccessDataType;
+
 public class FileCacheConfigLoader {
 	private static final String ACCESS_DATA_TYPE = "AccessDataType";
 	private static final String FILE_PATH = "FilePath";
@@ -42,6 +44,14 @@ public class FileCacheConfigLoader {
 		} catch(NumberFormatException e) {
 			throw e;
 		}
+		
+		switch(iAccessDataType) {
+		case AccessDataType.BYTE_ARRAY:
+		case AccessDataType.STRING:
+			break;
+		default:
+			throw new Exception("Unknow Access Data Type :[" + iAccessDataType + "]");
+		}
 	}
 	
 	private void readFilePath() {
@@ -57,6 +67,6 @@ public class FileCacheConfigLoader {
 	}
 	
 	private String getExceptionDesc(String sTag) {
-		return sTag + "must set in Config, check the config. ConfigPath:[" + sConfigPath + "]";
+		return sTag + " must set in Config, check the config. ConfigPath:[" + sConfigPath + "]";
 	}
 }

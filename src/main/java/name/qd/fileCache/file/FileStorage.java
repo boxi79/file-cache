@@ -1,19 +1,32 @@
 package name.qd.fileCache.file;
 
+import name.qd.fileCache.constant.AccessDataType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import name.qd.fileCache.constant.AccessDataType;
 
 public class FileStorage {
 	private static Logger log = LoggerFactory.getLogger(FileStorage.class);
 	
 	private String sFilePath;
+	private int iAccessDataType;
 	private IFileWorker fileWorker;
 	
 	public FileStorage(String sFilePath, int iAccessDataType) {
 		this.sFilePath = sFilePath;
+		this.iAccessDataType = iAccessDataType;
 		
+		initFileWorker();
+		
+		log.info("Init FileStorage, FilePath:[" + sFilePath + "]");
+	}
+	
+	private void initFileWorker() {
+		fileWorker = createFileWorker();
+	}
+	
+	private IFileWorker createFileWorker() {
+		IFileWorker fileWorker = null;
 		switch(iAccessDataType) {
 		case AccessDataType.BYTE_ARRAY:
 			fileWorker = new ByteArrayFileWorker();
@@ -21,9 +34,7 @@ public class FileStorage {
 		case AccessDataType.STRING:
 			fileWorker = new StringFileWorker();
 			break;
-		default:
-			log.error("AccessDataType not support. [" + iAccessDataType + "]");
-			break;
 		}
+		return fileWorker;
 	}
 }
