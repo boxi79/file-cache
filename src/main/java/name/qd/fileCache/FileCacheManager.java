@@ -1,6 +1,12 @@
 package name.qd.fileCache;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import name.qd.fileCache.cache.CacheManager;
 import name.qd.fileCache.cache.CacheStorage;
+import name.qd.fileCache.cache.IFileCacheObject;
 import name.qd.fileCache.file.FileStorage;
 
 import org.slf4j.Logger;
@@ -34,5 +40,39 @@ public class FileCacheManager {
 	}
 	
 	private void loadFile() {
+		File file = new File(configLoader.getFilePath());
+		if(!file.isDirectory()) {
+			logger.error(configLoader.getFilePath() + " is not a directory.");
+			return;
+		}
+		for(String sFileName : file.list()) {
+			IFileCacheObject fileCacheObj = getFileCacheObjInstance(sFileName);
+			if(fileCacheObj == null) return;
+			
+			CacheManager cacheManager = cacheStorage.getCacheInstance(sFileName);
+
+			try {
+				@SuppressWarnings("rawtypes")
+				List lst = fileStorage.read(sFileName, fileCacheObj.getDataLength());
+				setDataToCache(cacheManager, lst, sFileName);
+			} catch (IOException e) {
+				logger.error(e.getMessage(), e);
+			}
+		}
+	}
+	
+	private IFileCacheObject getFileCacheObjInstance(String sClassName) {
+		IFileCacheObject fileCacheObj = null;
+		try {
+			fileCacheObj = (IFileCacheObject) Class.forName(sClassName).newInstance();
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return fileCacheObj;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private void setDataToCache(CacheManager cacheManager, List lst, String sClassName) {
 	}
 }

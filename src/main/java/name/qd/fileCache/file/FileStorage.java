@@ -1,5 +1,8 @@
 package name.qd.fileCache.file;
 
+import java.io.IOException;
+import java.util.List;
+
 import name.qd.fileCache.constant.AccessDataType;
 
 import org.slf4j.Logger;
@@ -36,5 +39,14 @@ public class FileStorage {
 			break;
 		}
 		return fileWorker;
+	}
+	
+	public void write(String sFileName, Object object, int iIndex, int iLength) throws IOException {
+		fileWorker.write(sFilePath + "/" + sFileName, object, iIndex, iLength);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List read(String sFileName, int iLength) throws IOException {
+		return fileWorker.read(sFilePath + "/" + sFileName, iLength);
 	}
 }
