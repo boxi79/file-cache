@@ -32,18 +32,12 @@ public class FileStorage {
 			throw new Exception(sFilePath + " is not a directory.");
 		}
 		for(String sFileName : file.list()) {
-			IFileCacheObject fileCacheObj = getFileCacheObjInstance(sFileName);
+			IFileCacheObject fileCacheObj = IFileCacheObject.getFileCacheObjInstance(sFileName);
 			if(fileCacheObj == null) return null;
 
 			List<byte[]> lst = fileWorker.read(sFilePath + "/" + sFileName, fileCacheObj.getDataLength());
 			map.put(sFileName, lst);
 		}
 		return map;
-	}
-	
-	private IFileCacheObject getFileCacheObjInstance(String sClassName) throws Exception {
-		IFileCacheObject fileCacheObj = null;
-		fileCacheObj = (IFileCacheObject) Class.forName(sClassName).newInstance();
-		return fileCacheObj;
 	}
 }
