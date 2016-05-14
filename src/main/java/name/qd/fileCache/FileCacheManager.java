@@ -1,8 +1,6 @@
 package name.qd.fileCache;
 
-import java.util.List;
-import java.util.Map;
-
+import name.qd.fileCache.cache.CacheManager;
 import name.qd.fileCache.cache.CacheStorage;
 import name.qd.fileCache.file.FileStorage;
 
@@ -14,22 +12,23 @@ public class FileCacheManager {
 	private Logger log = LoggerFactory.getLogger(FileCacheManager.class);
 	
 	private CacheStorage cacheStorage;
-	private FileStorage fileStorage;
-	
 	
 	public FileCacheManager(String sFilePath) {
-		fileStorage = new FileStorage(sFilePath);
+		FileStorage fileStorage = new FileStorage(sFilePath);
 		log.info("Init FileStorage, FilePath:[" + sFilePath + "]");
 		
 		log.info("Loading file to cache...");
 		long lTime = System.currentTimeMillis();
 		try {
-			Map<String, List<byte[]>> map = fileStorage.loadDataFromFile();
-			cacheStorage = new CacheStorage(map);
+			cacheStorage = new CacheStorage(fileStorage);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
 		lTime = System.currentTimeMillis() - lTime;
 		log.info("File loaded to cache. Loaded time:[" + lTime + "] ms.");
+	}
+	
+	public CacheManager getCacheInstance(String sCacheName) {
+		return cacheStorage.getCacheInstance(sCacheName);
 	}
 }

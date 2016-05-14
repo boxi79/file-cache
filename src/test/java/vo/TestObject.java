@@ -71,7 +71,7 @@ public class TestObject implements IFileCacheObject {
 		this.cValue = cValue;
 	}
 
-	public Object parseToFileFormat() {
+	public byte[] parseToFileFormat() {
 		return null;
 	}
 

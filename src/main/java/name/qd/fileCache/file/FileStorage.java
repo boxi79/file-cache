@@ -17,14 +17,6 @@ public class FileStorage {
 		fileWorker = new ByteArrayFileWorker();
 	}
 	
-	public void write(String sFileName, byte[] bData, int iIndex, int iLength) throws IOException {
-		fileWorker.write(sFilePath + "/" + sFileName, bData, iIndex, iLength);
-	}
-	
-	public List<byte[]> read(String sFileName, int iLength) throws IOException {
-		return fileWorker.read(sFilePath + "/" + sFileName, iLength);
-	}
-	
 	public Map<String, List<byte[]>> loadDataFromFile() throws Exception {
 		Map<String, List<byte[]>> map = new HashMap<String, List<byte[]>>();
 		File file = new File(sFilePath);
@@ -39,5 +31,9 @@ public class FileStorage {
 			map.put(sFileName, lst);
 		}
 		return map;
+	}
+	
+	public void write(String sFileName, byte[] bData, int iIndex, int iLength) throws IOException {
+		fileWorker.write(sFilePath + "/" + sFileName, bData, iIndex, iLength);
 	}
 }

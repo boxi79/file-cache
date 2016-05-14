@@ -1,35 +1,42 @@
 package name.qd.fileCache.cache;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import name.qd.fileCache.file.FileStorage;
 
 public class CacheManager {
 	private Map<String, IFileCacheObject> map = new HashMap<String, IFileCacheObject>();
 	private Map<String, Integer> mapIndex = new HashMap<String, Integer>();
 	private AtomicInteger atomicSqn = new AtomicInteger();
+	private FileStorage fileStorage;
 	
-	CacheManager() {
+	CacheManager(FileStorage fileStorage) {
+		this.fileStorage = fileStorage;
 	}
 	
 	public IFileCacheObject get(String sKey) {
 		return map.get(sKey);
 	}
 	
-	public int put(String sKey, IFileCacheObject value) {
+	public void put(String sKey, IFileCacheObject value) throws IOException {
+		int iIndex = -1;
 		if(map.containsKey(sKey)) {
-			return update(sKey, value);
+			iIndex = updateCache(sKey, value);
 		} else {
-			return insert(sKey, value);
+			iIndex = insertCache(sKey, value);
 		}
+		fileStorage.write(value.getClass().getName(), value.parseToFileFormat(), iIndex, value.getDataLength());
 	}
 	
-	private int update(String sKey, IFileCacheObject value) {
+	private int updateCache(String sKey, IFileCacheObject value) {
 		map.put(sKey, value);
 		return mapIndex.get(sKey);
 	}
 	
-	private int insert(String sKey, IFileCacheObject value) {
+	private int insertCache(String sKey, IFileCacheObject value) {
 		map.put(sKey, value);
 		int iSqn = atomicSqn.getAndIncrement();
 		mapIndex.put(sKey, iSqn);

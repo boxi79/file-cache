@@ -8,7 +8,7 @@ public interface IFileCacheObject {
 		return fileCacheObj;
 	}
 	
-	public Object parseToFileFormat();
+	public byte[] parseToFileFormat();
 	public void toValueObject(byte[] bData);
 	public String getKeyString();
 	public int getDataLength();
