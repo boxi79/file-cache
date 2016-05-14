@@ -9,7 +9,7 @@ public class ByteArrayFileWorkerTest {
 	}
 	
 	private ByteArrayFileWorkerTest() {
-//		writeFile();
+		writeFile();
 		readFile();
 	}
 	

@@ -1,12 +1,13 @@
 package name.qd.fileCache.cache;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CacheStorage {
 	private Map<String, CacheManager> map = new HashMap<String, CacheManager>();
 	
-	public CacheStorage() {
+	public CacheStorage(Map<String, List<byte[]>> map) {
 	}
 	
 	public CacheManager getCacheInstance(String sCacheName) {
