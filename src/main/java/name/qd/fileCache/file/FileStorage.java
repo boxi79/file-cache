@@ -36,4 +36,8 @@ public class FileStorage {
 	public void write(String sFileName, byte[] bData, int iIndex, int iLength) throws IOException {
 		fileWorker.write(sFilePath + "/" + sFileName, bData, iIndex, iLength);
 	}
+	
+	public void writeAll(String sFileName, List<byte[]> lst, int iLength) throws IOException {
+		fileWorker.writeAll(sFilePath + "/" + sFileName, lst, iLength);
+	}
 }

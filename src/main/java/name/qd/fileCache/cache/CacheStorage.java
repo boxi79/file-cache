@@ -23,9 +23,9 @@ public class CacheStorage {
 		}
 	}
 	
-	public CacheManager getCacheInstance(String sCacheName) {
+	public CacheManager getCacheInstance(String sCacheName) throws Exception {
 		if(!map.containsKey(sCacheName)) {
-			map.put(sCacheName, new CacheManager(fileStorage));
+			map.put(sCacheName, new CacheManager(fileStorage, sCacheName));
 		}
 		return map.get(sCacheName);
 	}

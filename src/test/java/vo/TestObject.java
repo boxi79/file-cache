@@ -1,8 +1,10 @@
 package vo;
 
-import java.nio.ByteBuffer;
+import java.io.IOException;
 
 import name.qd.fileCache.cache.IFileCacheObject;
+import name.qd.fileCache.common.TransInputStream;
+import name.qd.fileCache.common.TransOutputStream;
 
 public class TestObject implements IFileCacheObject {
 	private String name;
@@ -13,8 +15,6 @@ public class TestObject implements IFileCacheObject {
 	private boolean bool;
 	private char cValue;
 	
-	private ByteBuffer buffer;
-
 	public String getName() {
 		return name;
 	}
@@ -71,22 +71,34 @@ public class TestObject implements IFileCacheObject {
 		this.cValue = cValue;
 	}
 
-	public byte[] parseToFileFormat() {
-		return null;
-	}
-
 	@Override
 	public int getDataLength() {
 		return 255;
 	}
 
 	@Override
-	public void toValueObject(byte[] bData) {
-		
+	public void toValueObject(byte[] bData) throws IOException {
+		TransInputStream tIn = new TransInputStream(bData);
+		bool = tIn.getBoolean();
+		name = tIn.getString();
+		id = tIn.getInt();
+		lValue = tIn.getLong();
+		dValue = tIn.getDouble();
 	}
 
 	@Override
 	public String getKeyString() {
 		return name;
+	}
+
+	@Override
+	public byte[] parseToFileFormat() throws IOException {
+		TransOutputStream tOut = new TransOutputStream();
+		tOut.writeBoolean(bool);
+		tOut.writeString(name);
+		tOut.writeInt(id);
+		tOut.writeLong(lValue);
+		tOut.writeDouble(dValue);
+		return tOut.toByteArray();
 	}
 }

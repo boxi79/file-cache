@@ -29,6 +29,12 @@ public class FileCacheManager {
 	}
 	
 	public CacheManager getCacheInstance(String sCacheName) {
-		return cacheStorage.getCacheInstance(sCacheName);
+		CacheManager cacheManager = null;
+		try {
+			cacheManager = cacheStorage.getCacheInstance(sCacheName);
+		} catch (Exception e) {
+			log.error("Cache Object class not exist.");
+		}
+		return cacheManager;
 	}
 }

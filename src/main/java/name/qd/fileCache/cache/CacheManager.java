@@ -1,45 +1,43 @@
 package name.qd.fileCache.cache;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import name.qd.fileCache.file.FileStorage;
 
 public class CacheManager {
 	private Map<String, IFileCacheObject> map = new HashMap<String, IFileCacheObject>();
-	private Map<String, Integer> mapIndex = new HashMap<String, Integer>();
-	private AtomicInteger atomicSqn = new AtomicInteger();
 	private FileStorage fileStorage;
+	private String sCacheName;
+	private int iDataLength;
 	
-	CacheManager(FileStorage fileStorage) {
+	CacheManager(FileStorage fileStorage, String sCacheName) throws Exception {
 		this.fileStorage = fileStorage;
+		this.sCacheName = sCacheName;
+		iDataLength = IFileCacheObject.getFileCacheObjInstance(sCacheName).getDataLength();
 	}
 	
 	public IFileCacheObject get(String sKey) {
 		return map.get(sKey);
 	}
 	
-	public void put(String sKey, IFileCacheObject value) throws IOException {
-		int iIndex = -1;
+	public void put(String sKey, IFileCacheObject value) {
+		map.put(sKey, value);
+	}
+	
+	public void delete(String sKey) {
 		if(map.containsKey(sKey)) {
-			iIndex = updateCache(sKey, value);
-		} else {
-			iIndex = insertCache(sKey, value);
+			map.remove(sKey);
 		}
-		fileStorage.write(value.getClass().getName(), value.parseToFileFormat(), iIndex, value.getDataLength());
 	}
 	
-	private int updateCache(String sKey, IFileCacheObject value) {
-		map.put(sKey, value);
-		return mapIndex.get(sKey);
-	}
-	
-	private int insertCache(String sKey, IFileCacheObject value) {
-		map.put(sKey, value);
-		int iSqn = atomicSqn.getAndIncrement();
-		mapIndex.put(sKey, iSqn);
-		return iSqn;
+	public void writeCacheToFile() throws IOException {
+		ArrayList<byte[]> lst = new ArrayList<byte[]>();
+		for(IFileCacheObject cacheObj : map.values()) {
+			lst.add(cacheObj.parseToFileFormat());
+		}
+		fileStorage.writeAll(sCacheName, lst, iDataLength);
 	}
 }

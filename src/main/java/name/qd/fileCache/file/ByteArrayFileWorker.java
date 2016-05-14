@@ -2,6 +2,7 @@ package name.qd.fileCache.file;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -14,6 +15,16 @@ class ByteArrayFileWorker {
 		try (RandomAccessFile rFile = new RandomAccessFile(sFilePath, "rws")) {
 			rFile.seek(iIndex * iLength);
 			rFile.write(bData);
+		}
+	}
+	
+	public void writeAll(String sFilePath, List<byte[]> lst, int iLength) throws IOException {
+		File file = new File(sFilePath);
+		try (FileOutputStream fOut = new FileOutputStream(file)) {
+			for(byte[] bData : lst) {
+				bData = toFileFormat(bData, iLength);
+				fOut.write(bData);
+			}
 		}
 	}
 

@@ -1,5 +1,7 @@
 package name.qd.fileCache.cache;
 
+import java.io.IOException;
+
 public interface IFileCacheObject {
 	
 	public static IFileCacheObject getFileCacheObjInstance(String sClassName) throws Exception {
@@ -8,8 +10,8 @@ public interface IFileCacheObject {
 		return fileCacheObj;
 	}
 	
-	public byte[] parseToFileFormat();
-	public void toValueObject(byte[] bData);
+	public byte[] parseToFileFormat() throws IOException;
+	public void toValueObject(byte[] bData) throws IOException;
 	public String getKeyString();
 	public int getDataLength();
 }
