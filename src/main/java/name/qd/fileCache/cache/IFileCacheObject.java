@@ -5,9 +5,7 @@ import java.io.IOException;
 public interface IFileCacheObject {
 	
 	public static IFileCacheObject getFileCacheObjInstance(String sClassName) throws Exception {
-		IFileCacheObject fileCacheObj = null;
-		fileCacheObj = (IFileCacheObject) Class.forName(sClassName).newInstance();
-		return fileCacheObj;
+		return (IFileCacheObject) Class.forName(sClassName).newInstance();
 	}
 	
 	public byte[] parseToFileFormat() throws IOException;

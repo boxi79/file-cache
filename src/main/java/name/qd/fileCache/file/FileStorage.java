@@ -23,18 +23,14 @@ public class FileStorage {
 		if(!file.isDirectory()) {
 			throw new Exception(sFilePath + " is not a directory.");
 		}
-		for(String sFileName : file.list()) {
+		String[] files = file.list();
+		if(files == null) return map;
+		for(String sFileName : files) {
 			IFileCacheObject fileCacheObj = IFileCacheObject.getFileCacheObjInstance(sFileName);
-			if(fileCacheObj == null) return null;
-
 			List<byte[]> lst = fileWorker.read(sFilePath + "/" + sFileName, fileCacheObj.getDataLength());
 			map.put(sFileName, lst);
 		}
 		return map;
-	}
-	
-	public void write(String sFileName, byte[] bData, int iIndex, int iLength) throws IOException {
-		fileWorker.write(sFilePath + "/" + sFileName, bData, iIndex, iLength);
 	}
 	
 	public void writeAll(String sFileName, List<byte[]> lst, int iLength) throws IOException {

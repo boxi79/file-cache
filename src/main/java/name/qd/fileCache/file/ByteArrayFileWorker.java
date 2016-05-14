@@ -4,20 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
 class ByteArrayFileWorker {
-	
-	public void write(String sFilePath, byte[] bData, int iIndex, int iLength) throws IOException {
-		bData = toFileFormat(bData, iLength);
-		try (RandomAccessFile rFile = new RandomAccessFile(sFilePath, "rws")) {
-			rFile.seek(iIndex * iLength);
-			rFile.write(bData);
-		}
-	}
-	
 	public void writeAll(String sFilePath, List<byte[]> lst, int iLength) throws IOException {
 		File file = new File(sFilePath);
 		try (FileOutputStream fOut = new FileOutputStream(file)) {
