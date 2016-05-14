@@ -7,10 +7,9 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
-class ByteArrayFileWorker implements IFileWorker {
+class ByteArrayFileWorker {
 	
-	public void write(String sFilePath, Object object, int iIndex, int iLength) throws IOException {
-		byte[] bData = (byte[]) object;
+	public void write(String sFilePath, byte[] bData, int iIndex, int iLength) throws IOException {
 		bData = toFileFormat(bData, iLength);
 		try (RandomAccessFile rFile = new RandomAccessFile(sFilePath, "rws")) {
 			rFile.seek(iIndex * iLength);
@@ -18,8 +17,7 @@ class ByteArrayFileWorker implements IFileWorker {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List read(String sFilePath, int iLength) throws IOException {
+	public List<byte[]> read(String sFilePath, int iLength) throws IOException {
 		File file = new File(sFilePath);
 		List<byte[]> lst = new ArrayList<byte[]>();
 		try (FileInputStream fIn = new FileInputStream(file);) {

@@ -1,4 +1,0 @@
-FilePath=./fileCache
-#AccessFile=true
-AccessDataType=1
-# 1. byte[] 2. String

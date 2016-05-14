@@ -16,21 +16,16 @@ public class FileCacheManager {
 	
 	private Logger logger = LoggerFactory.getLogger(FileCacheManager.class);
 	
-	private FileCacheConfigLoader configLoader;
 	private CacheStorage cacheStorage;
 	private FileStorage fileStorage;
 	
-	public FileCacheManager(String sConfigFile) {
-		try {
-			configLoader = new FileCacheConfigLoader(sConfigFile);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			e.printStackTrace();
-			return;
-		}
+	private String sFilePath;
+	
+	public FileCacheManager(String sFilePath) {
+		this.sFilePath = sFilePath;
 		
 		cacheStorage = new CacheStorage();
-		fileStorage = new FileStorage(configLoader.getFilePath(), configLoader.getAccessDataType());
+		fileStorage = new FileStorage(sFilePath);
 		
 		logger.info("Loading file to cache...");
 		long lTime = System.currentTimeMillis();
@@ -40,9 +35,9 @@ public class FileCacheManager {
 	}
 	
 	private void loadFile() {
-		File file = new File(configLoader.getFilePath());
+		File file = new File(sFilePath);
 		if(!file.isDirectory()) {
-			logger.error(configLoader.getFilePath() + " is not a directory.");
+			logger.error(sFilePath + " is not a directory.");
 			return;
 		}
 		for(String sFileName : file.list()) {
@@ -52,8 +47,7 @@ public class FileCacheManager {
 			CacheManager cacheManager = cacheStorage.getCacheInstance(sFileName);
 
 			try {
-				@SuppressWarnings("rawtypes")
-				List lst = fileStorage.read(sFileName, fileCacheObj.getDataLength());
+				List<byte[]> lst = fileStorage.read(sFileName, fileCacheObj.getDataLength());
 				setDataToCache(cacheManager, lst, sFileName);
 			} catch (IOException e) {
 				logger.error(e.getMessage(), e);
@@ -72,7 +66,6 @@ public class FileCacheManager {
 		return fileCacheObj;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	private void setDataToCache(CacheManager cacheManager, List lst, String sClassName) {
+	private void setDataToCache(CacheManager cacheManager, List<byte[]> lst, String sClassName) {
 	}
 }
