@@ -5,22 +5,22 @@ import java.io.IOException;
 import name.qd.fileCache.cache.CacheManager;
 import vo.TestObject;
 
-public class FIleCacheTest {
+public class FileCacheTest {
 	private FileCacheManager fileCacheManager;
 	
 	public static void main(String[] s) {
-		new FIleCacheTest();
+		new FileCacheTest();
 	}
 	
-	private FIleCacheTest() {
+	private FileCacheTest() {
 		fileCacheManager = new FileCacheManager("./data/");
 		
-//		createCacheData();
+		createCacheData();
 		printOutData();
 	}
 	
 	private void createCacheData() {
-		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getName());
+		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName(), TestObject.class.getName());
 		
 		for(int i = 0 ; i < 10 ; i++) {
 			TestObject to = new TestObject();
@@ -40,7 +40,7 @@ public class FIleCacheTest {
 	}
 	
 	private void printOutData() {
-		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getName());
+		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName(), TestObject.class.getName());
 		
 		TestObject to = (TestObject) cacheManager.get("QQ1");
 		

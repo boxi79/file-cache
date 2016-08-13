@@ -3,10 +3,9 @@ package name.qd.fileCache.file;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import name.qd.fileCache.cache.IFileCacheObject;
+import name.qd.fileCache.file.vo.FileAccessObj;
 
 public class FileStorage {
 	private String sFilePath;
@@ -17,8 +16,8 @@ public class FileStorage {
 		fileWorker = new ByteArrayFileWorker();
 	}
 	
-	public Map<String, List<byte[]>> loadDataFromFile() throws Exception {
-		Map<String, List<byte[]>> map = new HashMap<String, List<byte[]>>();
+	public Map<String, FileAccessObj> loadDataFromFile() throws Exception {
+		Map<String, FileAccessObj> map = new HashMap<String, FileAccessObj>();
 		File file = new File(sFilePath);
 		if(!file.isDirectory()) {
 			throw new Exception(sFilePath + " is not a directory.");
@@ -26,14 +25,13 @@ public class FileStorage {
 		String[] files = file.list();
 		if(files == null) return map;
 		for(String sFileName : files) {
-			IFileCacheObject fileCacheObj = IFileCacheObject.getFileCacheObjInstance(sFileName);
-			List<byte[]> lst = fileWorker.read(sFilePath + "/" + sFileName, fileCacheObj.getDataLength());
-			map.put(sFileName, lst);
+			FileAccessObj fileObj = fileWorker.read(sFilePath + "/" + sFileName);
+			map.put(sFileName, fileObj);
 		}
 		return map;
 	}
 	
-	public void writeAll(String sFileName, List<byte[]> lst, int iLength) throws IOException {
-		fileWorker.writeAll(sFilePath + "/" + sFileName, lst, iLength);
+	public void writeAll(String sFileName, FileAccessObj fileObj) throws IOException {
+		fileWorker.writeAll(sFilePath + "/" + sFileName, fileObj);
 	}
 }

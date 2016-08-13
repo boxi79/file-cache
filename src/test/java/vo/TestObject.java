@@ -72,11 +72,6 @@ public class TestObject implements IFileCacheObject {
 	}
 
 	@Override
-	public int getDataLength() {
-		return 255;
-	}
-
-	@Override
 	public void toValueObject(byte[] bData) throws IOException {
 		TransInputStream tIn = new TransInputStream(bData);
 		bool = tIn.getBoolean();

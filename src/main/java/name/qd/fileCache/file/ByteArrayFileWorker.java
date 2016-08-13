@@ -7,35 +7,49 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import name.qd.fileCache.file.vo.FileAccessObj;
+
 class ByteArrayFileWorker {
-	public void writeAll(String sFilePath, List<byte[]> lst, int iLength) throws IOException {
+	public void writeAll(String sFilePath, FileAccessObj fileObj) throws IOException {
 		File file = new File(sFilePath);
 		try (FileOutputStream fOut = new FileOutputStream(file)) {
-			for(byte[] bData : lst) {
-				bData = toFileFormat(bData, iLength);
+			writeClassName(fOut, fileObj.getClassName());
+			for(byte[] bData : fileObj.getList()) {
+				int iLength = bData.length;
+				fOut.write(iLength);
 				fOut.write(bData);
 			}
 		}
 	}
+	
+	private void writeClassName(FileOutputStream fOut, String sClassName) throws IOException {
+		int iClassNameLength = sClassName.getBytes().length;
+		fOut.write(iClassNameLength);
+		fOut.write(sClassName.getBytes());
+	}
 
-	public List<byte[]> read(String sFilePath, int iLength) throws IOException {
+	public FileAccessObj read(String sFilePath) throws IOException {
 		File file = new File(sFilePath);
 		List<byte[]> lst = new ArrayList<byte[]>();
+		FileAccessObj fileObj = new FileAccessObj();
 		try (FileInputStream fIn = new FileInputStream(file);) {
-			int iDataLength = fIn.available();
-			int iDataCount = iDataLength / iLength;
-			for(int i = 0 ; i < iDataCount ; i++) {
+			String sClassName = readClassName(fIn);
+			while(fIn.available() > 0) {
+				int iLength = fIn.read();
 				byte[] bData = new byte[iLength];
 				fIn.read(bData);
 				lst.add(bData);
 			}
+			fileObj.setClassName(sClassName);
+			fileObj.setList(lst);
 		}
-		return lst;
+		return fileObj;
 	}
-
-	private byte[] toFileFormat(byte[] bData, int iLength) {
-		byte[] bCombine = new byte[iLength];
-		System.arraycopy(bData, 0, bCombine, 0, bData.length);
-		return bCombine;
+	
+	private String readClassName(FileInputStream fIn) throws IOException {
+		int iClassNameLength = fIn.read();
+		byte[] bClassName = new byte[iClassNameLength];
+		fIn.read(bClassName);
+		return new String(bClassName);
 	}
 }

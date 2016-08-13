@@ -1,11 +1,11 @@
 package name.qd.fileCache.cache;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import name.qd.fileCache.file.FileStorage;
+import name.qd.fileCache.file.vo.FileAccessObj;
 
 public class CacheStorage {
 	private Map<String, CacheManager> map = new HashMap<String, CacheManager>();
@@ -13,21 +13,21 @@ public class CacheStorage {
 	
 	public CacheStorage(FileStorage fileStorage) throws Exception {
 		this.fileStorage = fileStorage;
-		Map<String, List<byte[]>> mapData = fileStorage.loadDataFromFile();
+		Map<String, FileAccessObj> mapData = fileStorage.loadDataFromFile();
 		
-		for(Entry<String, List<byte[]>> entry : mapData.entrySet()) {
-			CacheManager cacheManager = getCacheInstance(entry.getKey());
-			for(byte[] bData : entry.getValue()) {
-				IFileCacheObject cacheObj = IFileCacheObject.getFileCacheObjInstance(entry.getKey());
+		for(Entry<String, FileAccessObj> entry : mapData.entrySet()) {
+			CacheManager cacheManager = getCacheInstance(entry.getKey(), entry.getValue().getClassName());
+			for(byte[] bData : entry.getValue().getList()) {
+				IFileCacheObject cacheObj = IFileCacheObject.getFileCacheObjInstance(entry.getValue().getClassName());
 				cacheObj.toValueObject(bData);
 				cacheManager.put(cacheObj.getKeyString(), cacheObj);
 			}
 		}
 	}
 	
-	public CacheManager getCacheInstance(String sCacheName) throws Exception {
+	public CacheManager getCacheInstance(String sCacheName, String sClassName) throws Exception {
 		if(!map.containsKey(sCacheName)) {
-			map.put(sCacheName, new CacheManager(fileStorage, sCacheName));
+			map.put(sCacheName, new CacheManager(fileStorage, sCacheName, sClassName));
 		}
 		return map.get(sCacheName);
 	}

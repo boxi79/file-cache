@@ -6,17 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import name.qd.fileCache.file.FileStorage;
+import name.qd.fileCache.file.vo.FileAccessObj;
 
 public class CacheManager {
 	private Map<String, IFileCacheObject> map = new HashMap<String, IFileCacheObject>();
 	private FileStorage fileStorage;
 	private String sCacheName;
-	private int iDataLength;
+	private String sClassName;
 	
-	CacheManager(FileStorage fileStorage, String sCacheName) throws Exception {
+	CacheManager(FileStorage fileStorage, String sCacheName, String sClassName) throws Exception {
 		this.fileStorage = fileStorage;
 		this.sCacheName = sCacheName;
-		iDataLength = IFileCacheObject.getFileCacheObjInstance(sCacheName).getDataLength();
+		this.sClassName = sClassName;
 	}
 	
 	public IFileCacheObject get(String sKey) {
@@ -38,6 +39,6 @@ public class CacheManager {
 		for(IFileCacheObject cacheObj : map.values()) {
 			lst.add(cacheObj.parseToFileFormat());
 		}
-		fileStorage.writeAll(sCacheName, lst, iDataLength);
+		fileStorage.writeAll(sCacheName, new FileAccessObj(sClassName, lst));
 	}
 }

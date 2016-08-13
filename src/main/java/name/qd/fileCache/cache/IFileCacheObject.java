@@ -11,5 +11,4 @@ public interface IFileCacheObject {
 	public byte[] parseToFileFormat() throws IOException;
 	public void toValueObject(byte[] bData) throws IOException;
 	public String getKeyString();
-	public int getDataLength();
 }
