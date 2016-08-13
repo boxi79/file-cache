@@ -20,7 +20,10 @@ public class FileCacheTest {
 	}
 	
 	private void createCacheData() {
-		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName(), TestObject.class.getName());
+		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName());
+		if(cacheManager == null) {
+			cacheManager = fileCacheManager.createCacheInstance(TestObject.class.getSimpleName(), TestObject.class.getName());
+		}
 		
 		for(int i = 0 ; i < 10 ; i++) {
 			TestObject to = new TestObject();
@@ -40,7 +43,7 @@ public class FileCacheTest {
 	}
 	
 	private void printOutData() {
-		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName(), TestObject.class.getName());
+		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName());
 		
 		TestObject to = (TestObject) cacheManager.get("QQ1");
 		

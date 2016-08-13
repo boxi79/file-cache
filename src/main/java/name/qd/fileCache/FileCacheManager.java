@@ -28,10 +28,14 @@ public class FileCacheManager {
 		log.info("File loaded to cache. Loaded time:[" + lTime + "] ms.");
 	}
 	
-	public CacheManager getCacheInstance(String sCacheName, String sClassName) {
+	public CacheManager getCacheInstance(String sCacheName) {
+		return cacheStorage.getCacheInstance(sCacheName);
+	}
+	
+	public CacheManager createCacheInstance(String sCacheName, String sClassName) {
 		CacheManager cacheManager = null;
 		try {
-			cacheManager = cacheStorage.getCacheInstance(sCacheName, sClassName);
+			cacheManager = cacheStorage.createCacheInstance(sCacheName, sClassName);
 		} catch (Exception e) {
 			log.error("Cache Object class not exist.");
 		}

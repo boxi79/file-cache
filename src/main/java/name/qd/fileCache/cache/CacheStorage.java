@@ -16,7 +16,7 @@ public class CacheStorage {
 		Map<String, FileAccessObj> mapData = fileStorage.loadDataFromFile();
 		
 		for(Entry<String, FileAccessObj> entry : mapData.entrySet()) {
-			CacheManager cacheManager = getCacheInstance(entry.getKey(), entry.getValue().getClassName());
+			CacheManager cacheManager = createCacheInstance(entry.getKey(), entry.getValue().getClassName());
 			for(byte[] bData : entry.getValue().getList()) {
 				IFileCacheObject cacheObj = IFileCacheObject.getFileCacheObjInstance(entry.getValue().getClassName());
 				cacheObj.toValueObject(bData);
@@ -25,7 +25,11 @@ public class CacheStorage {
 		}
 	}
 	
-	public CacheManager getCacheInstance(String sCacheName, String sClassName) throws Exception {
+	public CacheManager getCacheInstance(String sCacheName) {
+		return map.get(sCacheName);
+	}
+	
+	public CacheManager createCacheInstance(String sCacheName, String sClassName) throws Exception {
 		if(!map.containsKey(sCacheName)) {
 			map.put(sCacheName, new CacheManager(fileStorage, sCacheName, sClassName));
 		}
