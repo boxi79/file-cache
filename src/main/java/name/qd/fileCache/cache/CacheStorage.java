@@ -3,6 +3,7 @@ package name.qd.fileCache.cache;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import name.qd.fileCache.file.FileStorage;
 import name.qd.fileCache.file.vo.FileAccessObj;
@@ -34,5 +35,9 @@ public class CacheStorage {
 			map.put(sCacheName, new CacheManager(fileStorage, sCacheName, sClassName));
 		}
 		return map.get(sCacheName);
+	}
+	
+	public Set<String> getCacheNameSet() {
+		return map.keySet();
 	}
 }

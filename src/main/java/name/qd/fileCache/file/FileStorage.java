@@ -19,6 +19,9 @@ public class FileStorage {
 	public Map<String, FileAccessObj> loadDataFromFile() throws Exception {
 		Map<String, FileAccessObj> map = new HashMap<String, FileAccessObj>();
 		File file = new File(sFilePath);
+		if(!file.exists()) {
+			file.mkdir();
+		}
 		if(!file.isDirectory()) {
 			throw new Exception(sFilePath + " is not a directory.");
 		}

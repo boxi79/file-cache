@@ -2,6 +2,7 @@ package name.qd.fileCache.cache;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,10 @@ public class CacheManager {
 		if(map.containsKey(sKey)) {
 			map.remove(sKey);
 		}
+	}
+	
+	public Collection<IFileCacheObject> values() {
+		return map.values();
 	}
 	
 	public void writeCacheToFile() throws IOException {

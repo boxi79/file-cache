@@ -4,6 +4,8 @@ import name.qd.fileCache.cache.CacheManager;
 import name.qd.fileCache.cache.CacheStorage;
 import name.qd.fileCache.file.FileStorage;
 
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,5 +42,9 @@ public class FileCacheManager {
 			log.error("Cache Object class not exist.");
 		}
 		return cacheManager;
+	}
+	
+	public Set<String> getCacheNameSet() {
+		return cacheStorage.getCacheNameSet();
 	}
 }
