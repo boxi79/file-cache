@@ -17,7 +17,7 @@ public class FileCacheManager {
 	
 	public FileCacheManager(String sFilePath) {
 		FileStorage fileStorage = new FileStorage(sFilePath);
-		log.info("Init FileStorage, FilePath:[" + sFilePath + "]");
+		log.info("Init FileStorage, FilePath:[{}]", sFilePath);
 		
 		log.info("Loading file to cache...");
 		long lTime = System.currentTimeMillis();
@@ -27,7 +27,7 @@ public class FileCacheManager {
 			log.error(e.getMessage(), e);
 		}
 		lTime = System.currentTimeMillis() - lTime;
-		log.info("File loaded to cache. Loaded time:[" + lTime + "] ms.");
+		log.info("File loaded to cache. Loaded time:[{}] ms.", lTime);
 	}
 	
 	public CacheManager getCacheInstance(String sCacheName) {
