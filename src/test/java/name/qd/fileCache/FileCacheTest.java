@@ -13,14 +13,23 @@ public class FileCacheTest {
 	}
 	
 	private FileCacheTest() {
-		fileCacheManager = new FileCacheManager("./data/");
+		try {
+			fileCacheManager = new FileCacheManager("./data/");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		createCacheData();
 		printOutData();
 	}
 	
 	private void createCacheData() {
-		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName());
+		CacheManager cacheManager = null;
+		try {
+			cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		if(cacheManager == null) {
 			cacheManager = fileCacheManager.createCacheInstance(TestObject.class.getSimpleName(), TestObject.class.getName());
 		}
@@ -43,7 +52,12 @@ public class FileCacheTest {
 	}
 	
 	private void printOutData() {
-		CacheManager cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName());
+		CacheManager cacheManager = null;
+		try {
+			cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		TestObject to = (TestObject) cacheManager.get("QQ1");
 		

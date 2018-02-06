@@ -2,6 +2,7 @@ package name.qd.fileCache.file;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ class ByteArrayFileWorker {
 		File file = new File(filePath);
 		List<byte[]> lst = new ArrayList<byte[]>();
 		FileAccessObj fileObj = new FileAccessObj();
-		try (FileInputStream fIn = new FileInputStream(file);) {
+		try (FileInputStream fIn = new FileInputStream(file)) {
 			String className = readClassName(fIn);
 			while(fIn.available() > 0) {
 				int length = fIn.read();
@@ -42,6 +43,8 @@ class ByteArrayFileWorker {
 			}
 			fileObj.setClassName(className);
 			fileObj.setList(lst);
+		} catch (FileNotFoundException e) {
+			return null;
 		}
 		return fileObj;
 	}

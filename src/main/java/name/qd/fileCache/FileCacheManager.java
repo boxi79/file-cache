@@ -15,22 +15,13 @@ public class FileCacheManager {
 	
 	private CacheStorage cacheStorage;
 	
-	public FileCacheManager(String filePath) {
+	public FileCacheManager(String filePath) throws Exception {
 		FileStorage fileStorage = new FileStorage(filePath);
 		log.info("Init FileStorage, FilePath:[{}]", filePath);
-		
-//		log.info("Loading file to cache...");
-//		long timestamp = System.currentTimeMillis();
-		try {
-			cacheStorage = new CacheStorage(fileStorage);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-//		timestamp = System.currentTimeMillis() - timestamp;
-//		log.info("File loaded to cache. Loaded time:[{}] ms.", timestamp);
+		cacheStorage = new CacheStorage(fileStorage);
 	}
 	
-	public CacheManager getCacheInstance(String cacheName) {
+	public CacheManager getCacheInstance(String cacheName) throws Exception {
 		return cacheStorage.getCacheInstance(cacheName);
 	}
 	
