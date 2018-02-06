@@ -10,46 +10,46 @@ import java.util.List;
 import name.qd.fileCache.file.vo.FileAccessObj;
 
 class ByteArrayFileWorker {
-	public void writeAll(String sFilePath, FileAccessObj fileObj) throws IOException {
-		File file = new File(sFilePath);
+	public void writeAll(String filePath, FileAccessObj fileObj) throws IOException {
+		File file = new File(filePath);
 		try (FileOutputStream fOut = new FileOutputStream(file)) {
 			writeClassName(fOut, fileObj.getClassName());
-			for(byte[] bData : fileObj.getList()) {
-				int iLength = bData.length;
-				fOut.write(iLength);
-				fOut.write(bData);
+			for(byte[] data : fileObj.getList()) {
+				int length = data.length;
+				fOut.write(length);
+				fOut.write(data);
 			}
 		}
 	}
 	
-	private void writeClassName(FileOutputStream fOut, String sClassName) throws IOException {
-		int iClassNameLength = sClassName.getBytes().length;
-		fOut.write(iClassNameLength);
-		fOut.write(sClassName.getBytes());
+	private void writeClassName(FileOutputStream fOut, String className) throws IOException {
+		int classNameLength = className.getBytes().length;
+		fOut.write(classNameLength);
+		fOut.write(className.getBytes());
 	}
 
-	public FileAccessObj read(String sFilePath) throws IOException {
-		File file = new File(sFilePath);
+	public FileAccessObj read(String filePath) throws IOException {
+		File file = new File(filePath);
 		List<byte[]> lst = new ArrayList<byte[]>();
 		FileAccessObj fileObj = new FileAccessObj();
 		try (FileInputStream fIn = new FileInputStream(file);) {
-			String sClassName = readClassName(fIn);
+			String className = readClassName(fIn);
 			while(fIn.available() > 0) {
-				int iLength = fIn.read();
-				byte[] bData = new byte[iLength];
-				fIn.read(bData);
-				lst.add(bData);
+				int length = fIn.read();
+				byte[] data = new byte[length];
+				fIn.read(data);
+				lst.add(data);
 			}
-			fileObj.setClassName(sClassName);
+			fileObj.setClassName(className);
 			fileObj.setList(lst);
 		}
 		return fileObj;
 	}
 	
 	private String readClassName(FileInputStream fIn) throws IOException {
-		int iClassNameLength = fIn.read();
-		byte[] bClassName = new byte[iClassNameLength];
-		fIn.read(bClassName);
-		return new String(bClassName);
+		int classNameLength = fIn.read();
+		byte[] className = new byte[classNameLength];
+		fIn.read(className);
+		return new String(className);
 	}
 }

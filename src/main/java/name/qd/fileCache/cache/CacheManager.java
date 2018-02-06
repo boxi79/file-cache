@@ -10,40 +10,40 @@ import name.qd.fileCache.file.FileStorage;
 import name.qd.fileCache.file.vo.FileAccessObj;
 
 public class CacheManager {
-	private Map<String, IFileCacheObject> map = new HashMap<String, IFileCacheObject>();
+	private Map<String, FileCacheObject> map = new HashMap<String, FileCacheObject>();
 	private FileStorage fileStorage;
-	private String sCacheName;
-	private String sClassName;
+	private String cacheName;
+	private String className;
 	
-	CacheManager(FileStorage fileStorage, String sCacheName, String sClassName) throws Exception {
+	CacheManager(FileStorage fileStorage, String cacheName, String className) throws Exception {
 		this.fileStorage = fileStorage;
-		this.sCacheName = sCacheName;
-		this.sClassName = sClassName;
+		this.cacheName = cacheName;
+		this.className = className;
 	}
 	
-	public IFileCacheObject get(String sKey) {
-		return map.get(sKey);
+	public FileCacheObject get(String key) {
+		return map.get(key);
 	}
 	
-	public void put(String sKey, IFileCacheObject value) {
-		map.put(sKey, value);
+	public void put(String key, FileCacheObject value) {
+		map.put(key, value);
 	}
 	
-	public void delete(String sKey) {
-		if(map.containsKey(sKey)) {
-			map.remove(sKey);
+	public void remove(String key) {
+		if(map.containsKey(key)) {
+			map.remove(key);
 		}
 	}
 	
-	public Collection<IFileCacheObject> values() {
+	public Collection<FileCacheObject> values() {
 		return map.values();
 	}
 	
 	public void writeCacheToFile() throws IOException {
 		ArrayList<byte[]> lst = new ArrayList<byte[]>();
-		for(IFileCacheObject cacheObj : map.values()) {
+		for(FileCacheObject cacheObj : map.values()) {
 			lst.add(cacheObj.parseToFileFormat());
 		}
-		fileStorage.writeAll(sCacheName, new FileAccessObj(sClassName, lst));
+		fileStorage.writeAll(cacheName, new FileAccessObj(className, lst));
 	}
 }

@@ -2,10 +2,10 @@ package name.qd.fileCache.cache;
 
 import java.io.IOException;
 
-public interface IFileCacheObject {
+public interface FileCacheObject {
 	
-	public static IFileCacheObject getFileCacheObjInstance(String sClassName) throws Exception {
-		return (IFileCacheObject) Class.forName(sClassName).newInstance();
+	public static FileCacheObject getFileCacheObjInstance(String className) throws Exception {
+		return (FileCacheObject) Class.forName(className).newInstance();
 	}
 	
 	public byte[] parseToFileFormat() throws IOException;

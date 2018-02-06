@@ -2,11 +2,11 @@ package vo;
 
 import java.io.IOException;
 
-import name.qd.fileCache.cache.IFileCacheObject;
+import name.qd.fileCache.cache.FileCacheObject;
 import name.qd.fileCache.common.TransInputStream;
 import name.qd.fileCache.common.TransOutputStream;
 
-public class TestObject implements IFileCacheObject {
+public class TestObject implements FileCacheObject {
 	private String name;
 	private int id;
 	private long lValue;

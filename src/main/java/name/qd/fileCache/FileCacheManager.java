@@ -15,36 +15,36 @@ public class FileCacheManager {
 	
 	private CacheStorage cacheStorage;
 	
-	public FileCacheManager(String sFilePath) {
-		FileStorage fileStorage = new FileStorage(sFilePath);
-		log.info("Init FileStorage, FilePath:[{}]", sFilePath);
+	public FileCacheManager(String filePath) {
+		FileStorage fileStorage = new FileStorage(filePath);
+		log.info("Init FileStorage, FilePath:[{}]", filePath);
 		
-		log.info("Loading file to cache...");
-		long lTime = System.currentTimeMillis();
+//		log.info("Loading file to cache...");
+//		long timestamp = System.currentTimeMillis();
 		try {
 			cacheStorage = new CacheStorage(fileStorage);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
-		lTime = System.currentTimeMillis() - lTime;
-		log.info("File loaded to cache. Loaded time:[{}] ms.", lTime);
+//		timestamp = System.currentTimeMillis() - timestamp;
+//		log.info("File loaded to cache. Loaded time:[{}] ms.", timestamp);
 	}
 	
-	public CacheManager getCacheInstance(String sCacheName) {
-		return cacheStorage.getCacheInstance(sCacheName);
+	public CacheManager getCacheInstance(String cacheName) {
+		return cacheStorage.getCacheInstance(cacheName);
 	}
 	
-	public CacheManager createCacheInstance(String sCacheName, String sClassName) {
+	public CacheManager createCacheInstance(String cacheName, String className) {
 		CacheManager cacheManager = null;
 		try {
-			cacheManager = cacheStorage.createCacheInstance(sCacheName, sClassName);
+			cacheManager = cacheStorage.createCacheInstance(cacheName, className);
 		} catch (Exception e) {
 			log.error("Cache Object class not exist.");
 		}
 		return cacheManager;
 	}
 	
-	public Set<String> getCacheNameSet() {
+	public Set<String> getLoadedCacheNameSet() {
 		return cacheStorage.getCacheNameSet();
 	}
 }

@@ -8,8 +8,8 @@ public class TransInputStream {
 	private DataInputStream dIn;
 	private ByteArrayInputStream bIn;
 	
-	public TransInputStream(byte[] bData) {
-		bIn = new ByteArrayInputStream(bData);
+	public TransInputStream(byte[] data) {
+		bIn = new ByteArrayInputStream(data);
 		dIn = new DataInputStream(bIn);
 	}
 	
@@ -38,22 +38,22 @@ public class TransInputStream {
 	}
 	
 	public byte[] getBytes() throws IOException {
-		int iLength = dIn.readInt();
-		byte[] bData = new byte[iLength];
-		int readed = dIn.read(bData);
-		if(iLength != readed) {
+		int length = dIn.readInt();
+		byte[] data = new byte[length];
+		int readed = dIn.read(data);
+		if(length != readed) {
 			throw new IOException("read bytes failed.");
 		}
-		return bData;
+		return data;
 	}
 	
 	public String getString() throws IOException {
-		int iLength = dIn.readInt();
-		byte[] bData = new byte[iLength];
-		int readed = dIn.read(bData);
-		if(iLength != readed) {
+		int length = dIn.readInt();
+		byte[] data = new byte[length];
+		int readed = dIn.read(data);
+		if(length != readed) {
 			throw new IOException("read bytes failed.");
 		}
-		return new String(bData);
+		return new String(data);
 	}
 }

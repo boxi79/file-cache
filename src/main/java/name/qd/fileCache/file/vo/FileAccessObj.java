@@ -3,23 +3,23 @@ package name.qd.fileCache.file.vo;
 import java.util.List;
 
 public class FileAccessObj {
-	private String sClassName;
+	private String className;
 	private List<byte[]> lst;
 	
-	public FileAccessObj(String sClassName, List<byte[]> lst) {
-		this.sClassName = sClassName;
+	public FileAccessObj(String className, List<byte[]> lst) {
+		this.className = className;
 		this.lst = lst;
 	}
 	
 	public FileAccessObj(){
 	}
 	
-	public void setClassName(String sClassName) {
-		this.sClassName = sClassName;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 	
 	public String getClassName() {
-		return sClassName;
+		return className;
 	}
 	
 	public void setList(List<byte[]> lst) {

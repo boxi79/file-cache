@@ -36,7 +36,7 @@ public class FileCacheTest {
 		
 		try {
 			cacheManager.writeCacheToFile();
-			cacheManager.delete("QQ3");
+			cacheManager.remove("QQ3");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,7 +53,7 @@ public class FileCacheTest {
 		System.out.println(to.getdValue());
 		System.out.println(to.getlValue());
 		
-		cacheManager.delete("QQ3");
+		cacheManager.remove("QQ3");
 	}
 	
 	
