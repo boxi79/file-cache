@@ -35,7 +35,11 @@ public class FileCacheManager {
 		return cacheManager;
 	}
 	
-	public void removeCacheInstance(String cacheName) {
+	public void removeCache(String cacheName) {
+		
+	}
+	
+	public void removeCacheAndFile(String cacheName) {
 		
 	}
 	

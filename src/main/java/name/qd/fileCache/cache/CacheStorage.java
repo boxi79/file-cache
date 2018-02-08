@@ -49,9 +49,16 @@ public class CacheStorage {
 		return map.get(cacheName);
 	}
 	
-	public void removeCacheInstance(String cacheName) throws IOException {
+	public void removeCacheAndFile(String cacheName) throws IOException {
 		if (map.containsKey(cacheName)) {
 			map.get(cacheName).removeFile();
+			map.remove(cacheName);
+		}
+	}
+	
+	public void removeCache(String cacheName) {
+		if (map.containsKey(cacheName)) {
+			map.remove(cacheName);
 		}
 	}
 
