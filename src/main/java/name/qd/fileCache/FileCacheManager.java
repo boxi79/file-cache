@@ -21,7 +21,7 @@ public class FileCacheManager {
 		cacheStorage = new CacheStorage(fileStorage);
 	}
 	
-	public CacheManager getCacheInstance(String cacheName) throws Exception {
+	public CacheManager getCacheInstance(String cacheName) {
 		return cacheStorage.getCacheInstance(cacheName);
 	}
 	
@@ -33,6 +33,10 @@ public class FileCacheManager {
 			log.error("Cache Object class not exist.");
 		}
 		return cacheManager;
+	}
+	
+	public void removeCacheInstance(String cacheName) {
+		
 	}
 	
 	public Set<String> getLoadedCacheNameSet() {

@@ -21,6 +21,8 @@ public class FileCacheTest {
 		
 		createCacheData();
 		printOutData();
+		
+//		removeCache();
 	}
 	
 	private void createCacheData() {
@@ -70,5 +72,13 @@ public class FileCacheTest {
 		cacheManager.remove("QQ3");
 	}
 	
-	
+	private void removeCache() {
+		CacheManager cacheManager = null;
+		try {
+			cacheManager = fileCacheManager.getCacheInstance(TestObject.class.getSimpleName());
+			cacheManager.removeFile();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
 }

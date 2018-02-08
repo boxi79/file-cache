@@ -46,4 +46,8 @@ public class CacheManager {
 		}
 		fileStorage.writeAll(cacheName, new FileAccessObj(className, lst));
 	}
+	
+	public void removeFile() throws IOException {
+		fileStorage.removeFile(cacheName);
+	}
 }

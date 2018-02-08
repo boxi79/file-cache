@@ -2,6 +2,7 @@ package name.qd.fileCache.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import name.qd.fileCache.file.vo.FileAccessObj;
 
@@ -28,5 +29,10 @@ public class FileStorage {
 	
 	public void writeAll(String fileName, FileAccessObj fileObj) throws IOException {
 		fileWorker.writeAll(filePath + "/" + fileName, fileObj);
+	}
+	
+	public void removeFile(String fileName) throws IOException {
+		File file = new File(filePath + "/" + fileName);
+		Files.deleteIfExists(file.toPath());
 	}
 }

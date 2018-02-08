@@ -1,13 +1,18 @@
 package name.qd.fileCache.cache;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import name.qd.fileCache.file.FileStorage;
 import name.qd.fileCache.file.vo.FileAccessObj;
 
 public class CacheStorage {
+	private static Logger log = LoggerFactory.getLogger(CacheStorage.class);
 	private Map<String, CacheManager> map = new HashMap<>();
 	private FileStorage fileStorage;
 
@@ -15,9 +20,13 @@ public class CacheStorage {
 		this.fileStorage = fileStorage;
 	}
 
-	public CacheManager getCacheInstance(String cacheName) throws Exception {
+	public CacheManager getCacheInstance(String cacheName) {
 		if (!map.containsKey(cacheName)) {
-			readCacheFromFile(cacheName);
+			try {
+				readCacheFromFile(cacheName);
+			} catch (Exception e) {
+				log.error("");
+			}
 		}
 		return map.get(cacheName);
 	}
@@ -38,6 +47,12 @@ public class CacheStorage {
 			map.put(cacheName, new CacheManager(fileStorage, cacheName, className));
 		}
 		return map.get(cacheName);
+	}
+	
+	public void removeCacheInstance(String cacheName) throws IOException {
+		if (map.containsKey(cacheName)) {
+			map.get(cacheName).removeFile();
+		}
 	}
 
 	public Set<String> getCacheNameSet() {
