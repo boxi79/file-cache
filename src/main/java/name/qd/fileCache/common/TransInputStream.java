@@ -51,9 +51,9 @@ public class TransInputStream {
 		int length = dIn.readInt();
 		byte[] data = new byte[length];
 		int readed = dIn.read(data);
-//		if(length != readed) {
-//			throw new IOException("read bytes failed.");
-//		}
+		if(length != readed) {
+			throw new IOException("read bytes failed.");
+		}
 		return new String(data);
 	}
 }
