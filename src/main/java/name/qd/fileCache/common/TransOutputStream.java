@@ -44,7 +44,7 @@ public class TransOutputStream {
 	
 	public void writeString(String s) throws IOException {
 		dOut.writeInt(s.getBytes().length);
-		dOut.writeBytes(s);
+		dOut.write(s.getBytes());
 	}
 	
 	public byte[] toByteArray() {

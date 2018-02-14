@@ -25,7 +25,7 @@ public class CacheStorage {
 			try {
 				readCacheFromFile(cacheName);
 			} catch (Exception e) {
-				log.error("");
+				log.error("", e);
 			}
 		}
 		return map.get(cacheName);

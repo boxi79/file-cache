@@ -10,7 +10,7 @@ import name.qd.fileCache.file.FileStorage;
 import name.qd.fileCache.file.vo.FileAccessObj;
 
 public class CacheManager {
-	private Map<String, FileCacheObject> map = new HashMap<String, FileCacheObject>();
+	private Map<String, FileCacheObject> map = new HashMap<>();
 	private FileStorage fileStorage;
 	private String cacheName;
 	private String className;
@@ -45,6 +45,10 @@ public class CacheManager {
 			lst.add(cacheObj.parseToFileFormat());
 		}
 		fileStorage.writeAll(cacheName, new FileAccessObj(className, lst));
+	}
+	
+	public String getClassName() {
+		return className;
 	}
 	
 	public void removeFile() throws IOException {
