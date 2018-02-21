@@ -14,6 +14,14 @@ Maven Repo
             </snapshots>
         </repository>
     </repositories>
+    
+Dependency
+
+    <dependency>
+        <groupId>name.qd</groupId>
+        <artifactId>fileCache</artifactId>
+        <version>1.0</version>
+    </dependency>
 
 ##1. 建立FileCache
 
