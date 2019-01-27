@@ -34,7 +34,7 @@ Dependency
 ## 2. 實做CacheVo
 繼承IFileCacheObject，並實作相關Methods
 
-    public class TestObject implements IFileCacheObject  
+    public class TestObject implements FileCacheObject  
 
 需實做的Methods
 
@@ -65,7 +65,7 @@ CacheManager就是Cache的主體
 cacheName為你想要這個Cache的名稱  
 className為這個cache內的class名稱，建議直接用Class.class.getName()  
 用於讀取檔案後還原class object用，所以名稱一定要對
-(因為所有Object都繼承IFileCacheObject，但我無法取得實作名稱)
+(因為所有Object都繼承FileCacheObject，但我無法取得實作名稱)
 
 ## 4. 取得Cache
 FileCacheManager.getCacheInstance就可取得CacheManager  
@@ -77,7 +77,7 @@ FileCacheManager.getCacheInstance就可取得CacheManager
 ## 5. 操作Cache
 
     public IFileCacheObject get(String sKey) 
-    public void put(String sKey, IFileCacheObject value)
+    public void put(String sKey, FileCacheObject value)
     public void delete(String sKey)
 
 ## 6. 寫檔
