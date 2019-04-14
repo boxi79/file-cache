@@ -36,7 +36,7 @@ public class CacheStorage {
 		if(fileAccessObj == null) return;
 		CacheManager cacheManager = createCacheInstance(cacheName, fileAccessObj.getClassName());
 		for (byte[] data : fileAccessObj.getList()) {
-			FileCacheObject cacheObj = FileCacheObject.getFileCacheObjInstance(fileAccessObj.getClassName());
+			FileCacheObject cacheObj = (FileCacheObject) Class.forName(fileAccessObj.getClassName()).newInstance();
 			cacheObj.toValueObject(data);
 			cacheManager.put(cacheObj.getKeyString(), cacheObj);
 		}
