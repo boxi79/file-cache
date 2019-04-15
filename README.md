@@ -1,6 +1,16 @@
 ## version 2.0 預計開發
 
-
+新增cache type  
+N 一般cache，一個Key一個Value的存取方式  
+C 座標cache，一個Key會拿到一排資料  
+|  | A | B | C |  
+| ------ | ------ | ------ | ------|  
+| Q | 123 | 22 | 98 |  
+| Q1 | 3 | f | 55 |  
+以上表為例  
+123物件會有兩組Key，分別為A及Q  
+所以對Cache取A Key時，會取得123及  
+  
 
 
 ## 目前版本 1.0
@@ -34,9 +44,9 @@ Dependency
 
     FileCacheManager fileCacheManager = new FileCacheManager("./data/");
 
-建立一個FileCacheManager，並指定檔案路徑。  
-檔案路徑裡面只能有這個工具產生的檔案  
-因為重開時，程式會去資料夾內讀取所有檔案並還原成Cache
+  建立一個FileCacheManager，並指定檔案路徑。  
+  檔案路徑裡面只能有這個工具產生的檔案  
+  因為重開時，程式會去資料夾內讀取所有檔案並還原成Cache
 
 ## 2. 實做CacheVo
 繼承IFileCacheObject，並實作相關Methods
