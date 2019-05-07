@@ -11,7 +11,7 @@ import java.util.List;
 import name.qd.fileCache.file.vo.FileAccessObj;
 
 class ByteArrayFileWorker {
-	public void writeAll(String filePath, FileAccessObj fileObj) throws IOException {
+	public void writeAll(String filePath, FileAccessObj fileObj) throws FileNotFoundException, IOException {
 		File file = new File(filePath);
 		try (FileOutputStream fOut = new FileOutputStream(file)) {
 			writeClassName(fOut, fileObj.getClassName());

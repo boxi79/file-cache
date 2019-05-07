@@ -9,24 +9,24 @@ import java.util.Map;
 import name.qd.fileCache.file.FileStorage;
 import name.qd.fileCache.file.vo.FileAccessObj;
 
-public class CacheManager {
-	private Map<String, FileCacheObject> map = new HashMap<>();
-	private FileStorage fileStorage;
-	private String cacheName;
-	private String className;
+public class NormalCacheManager {
+	private Map<String, NormalObject> map = new HashMap<>();
+	private final FileStorage fileStorage;
+	private final String cacheName;
+	private final String className;
 	
-	CacheManager(FileStorage fileStorage, String cacheName, String className) throws Exception {
+	NormalCacheManager(FileStorage fileStorage, String cacheName, String className) {
 		this.fileStorage = fileStorage;
 		this.cacheName = cacheName;
 		this.className = className;
 	}
 	
-	public FileCacheObject get(String key) {
+	public NormalObject get(String key) {
 		return map.get(key);
 	}
 	
-	public void put(String key, FileCacheObject value) {
-		map.put(key, value);
+	public void put(NormalObject value) {
+		map.put(value.getKeyString(), value);
 	}
 	
 	public void remove(String key) {
@@ -35,7 +35,7 @@ public class CacheManager {
 		}
 	}
 	
-	public Collection<FileCacheObject> values() {
+	public Collection<NormalObject> values() {
 		return map.values();
 	}
 	
