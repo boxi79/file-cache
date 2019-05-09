@@ -3,7 +3,6 @@ package name.qd.fileCache.cache;
 import java.io.IOException;
 
 public interface FileCacheObject {
-	public byte[] parseToFileFormat() throws IOException;
-	public void toValueObject(byte[] data) throws IOException;
-	public String getKeyString();
+	public abstract byte[] parseToFileFormat() throws IOException;
+	public abstract void toValueObject(byte[] data) throws IOException;
 }

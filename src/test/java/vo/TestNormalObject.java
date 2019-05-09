@@ -2,11 +2,11 @@ package vo;
 
 import java.io.IOException;
 
-import name.qd.fileCache.cache.FileCacheObject;
+import name.qd.fileCache.cache.NormalObject;
 import name.qd.fileCache.common.TransInputStream;
 import name.qd.fileCache.common.TransOutputStream;
 
-public class TestObject implements FileCacheObject {
+public class TestNormalObject extends NormalObject {
 	private String name;
 	private int id;
 	private long lValue;
