@@ -89,4 +89,13 @@ public class NormalCacheTest {
 			e.printStackTrace();
 		}
 	}
+	
+	public void removeAll() {
+		createCache();
+		try {
+			cacheManager.removeFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
