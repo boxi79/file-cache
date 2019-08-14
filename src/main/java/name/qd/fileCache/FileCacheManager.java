@@ -39,6 +39,10 @@ public class FileCacheManager {
 		}
 	}
 	
+	public boolean isCacheExist(String cacheName) {
+		return cacheStorage.isCacheExist(cacheName);
+	}
+	
 	public void removeNormalCache(String cacheName) {
 		cacheStorage.removeNormalCache(cacheName);
 	}

@@ -16,16 +16,17 @@ public class FileCacheTest {
 			e.printStackTrace();
 		}
 		
-//		normalTest = new NormalCacheTest(fileCacheManager);
+		normalTest = new NormalCacheTest(fileCacheManager);
 //		normalTest.setSomeData();
 //		normalTest.reloadAndAdd();
 //		normalTest.reloadFromCache();
 //		normalTest.removeObj();
+		normalTest.removeAll();
 		
-		coordinateTest = new CoordinateCacheTest(fileCacheManager);
+//		coordinateTest = new CoordinateCacheTest(fileCacheManager);
 //		coordinateTest.setSomeData();
 //		coordinateTest.reloadAndAdd();
 //		coordinateTest.reloadFromCache();
-		coordinateTest.removeObj();
+//		coordinateTest.removeObj();
 	}
 }

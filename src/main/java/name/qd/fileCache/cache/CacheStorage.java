@@ -30,6 +30,10 @@ public class CacheStorage {
 		}
 		return mapCoordinate.get(cacheName);
 	}
+	
+	public boolean isCacheExist(String cacheName) {
+		return fileStorage.isFileExist(cacheName);
+	}
 
 	private void readNormalCacheFromFile(String cacheName, String className) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
 		FileAccessObj fileAccessObj = fileStorage.loadDataFromFile(cacheName);
