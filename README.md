@@ -1,3 +1,5 @@
+![alt text](https://travis-ci.org/qqdog1/FileCache.svg?branch=master)
+
 ## 目前版本 2.0
 
 這是一個Cache管理的工具  
