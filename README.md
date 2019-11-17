@@ -1,6 +1,4 @@
-![alt text](https://travis-ci.org/qqdog1/FileCache.svg?branch=master)
-
-## 目前版本 2.0
+## 目前版本 2.0.x
 
 這是一個Cache管理的工具  
 會在使用者需要的時間，將Cache寫入到檔案中  
