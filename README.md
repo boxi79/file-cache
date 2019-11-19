@@ -1,3 +1,5 @@
+![](https://github.com/qqdog1/file-cache/workflows/JAVA-CI/badge.svg)
+
 ## 目前版本 2.0.x
 
 這是一個Cache管理的工具  
