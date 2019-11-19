@@ -1,4 +1,4 @@
-![](https://github.com/qqdog1/file-cache/workflows/Java CI/badge.svg)
+![](https://github.com/qqdog1/file-cache/workflows/Java%20CI/badge.svg)
 
 ## 目前版本 2.0.x
 
