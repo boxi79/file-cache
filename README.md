@@ -1,21 +1,18 @@
 ![](https://github.com/qqdog1/file-cache/workflows/Java%20CI/badge.svg)
 
-## 目前版本 2.0.x
+## 目前版本 2.0.2
 
 這是一個Cache管理的工具  
 會在使用者需要的時間，將Cache寫入到檔案中  
 在下次程式啟動時，第一次使用Cache時，會先嘗試從檔案中將Cache讀回，若沒有檔案Cache，會建立新的Cache
 
+目前無法使用 嘗試使用Github packages但需要github_token
 Maven Repo
 
     <repositories>
         <repository>
-            <id>FileCache-mvn-repo</id>
-            <url>https://raw.github.com/qqdog1/FileCache/mvn-repo/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
+            <id>file-cache-mvn-repo</id>
+            <url>https://maven.pkg.github.com/qqdog1/file-cache</url>
         </repository>
     </repositories>
     
@@ -24,7 +21,7 @@ Dependency
     <dependency>
         <groupId>name.qd</groupId>
         <artifactId>fileCache</artifactId>
-        <version>2.0</version>
+        <version>2.0.2</version>
     </dependency>
 
 ## 1. 建立FileCache
