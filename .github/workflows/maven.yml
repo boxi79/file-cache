@@ -1,4 +1,4 @@
-name: Java CI
+name: File Cache build
 
 on: [push]
 
