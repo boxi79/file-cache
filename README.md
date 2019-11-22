@@ -4,10 +4,10 @@
 
 這是一個Cache管理的工具  
 會在使用者需要的時間，將Cache寫入到檔案中  
-在下次程式啟動時，第一次使用Cache時，會先嘗試從檔案中將Cache讀回，若沒有檔案Cache，會建立新的Cache
+在下次程式啟動時，第一次使用Cache時，會先嘗試從檔案中將Cache讀回，若沒有檔案Cache，會建立新的Cache  
 
-目前無法使用 嘗試使用Github packages但需要github_token
-Maven Repo
+目前無法使用 嘗試使用Github packages但需要github_token  
+Maven Repo  
 
     <repositories>
         <repository>
