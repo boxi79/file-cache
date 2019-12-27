@@ -12,8 +12,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Deploy to Github Package Registry
-      env:
-        GITHUB_USERNAME: qqdog1
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn deploy
+    - name: Deploy to Github Packages
+      run: mvn -B -Dgithub.user=${{ secrets.github_user }} -Dgithub.password=${{ secrets.github_token }} -s settings.xml deploy 
+
