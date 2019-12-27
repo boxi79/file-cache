@@ -14,8 +14,6 @@ jobs:
         java-version: 1.8
     - name: Deploy to Github Package Registry
       env:
+        GITHUB_USERNAME: qqdog1
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        mkdir ~/.m2
-        echo "<settings><servers><server><id>github</id><username>qqdog1</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
-        mvn deploy
+      run: mvn deploy
