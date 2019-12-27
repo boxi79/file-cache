@@ -33,7 +33,7 @@
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
-	<scm>https://maven.pkg.github.com/qqdog1/file-cache</scm>
+	<scm><url>https://maven.pkg.github.com/qqdog1/file-cache</url></scm>
 	
 	<distributionManagement>
 	    <repository>
