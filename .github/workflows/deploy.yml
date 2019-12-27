@@ -13,5 +13,5 @@ jobs:
       with:
         java-version: 1.8
     - name: Deploy to Github Packages
-      run: mvn -B -Dgithub.user=${{ secrets.github_user }} -Dgithub.password=${{ secrets.github_token }} -s settings.xml deploy 
+      run: mvn -B -Dgithub.user=qqdog1 -Dgithub.password=${{ secrets.GITHUB_TOKEN }} deploy 
 
