@@ -1,18 +1,19 @@
 ![](https://github.com/qqdog1/file-cache/workflows/File%20Cache%20build/badge.svg)
 
-## 目前版本 2.0.2
+## 目前版本 2.0.3
 
 這是一個Cache管理的工具  
 會在使用者需要的時間，將Cache寫入到檔案中  
 在下次程式啟動時，第一次使用Cache時，會先嘗試從檔案中將Cache讀回，若沒有檔案Cache，會建立新的Cache  
 
-## Maven Repo 目前無法使用 嘗試使用Github packages但需要github_token  
-## 需要請自行抓Source code 並 mvn install
-Maven Repo  
+# 安裝
+
+## 1. 修改pom
+增加Maven Repo  
 
     <repositories>
         <repository>
-            <id>file-cache-mvn-repo</id>
+            <id>github</id>
             <url>https://maven.pkg.github.com/qqdog1/file-cache</url>
         </repository>
     </repositories>
@@ -21,10 +22,36 @@ Dependency
 
     <dependency>
         <groupId>name.qd</groupId>
-        <artifactId>fileCache</artifactId>
-        <version>2.0.2</version>
+        <artifactId>file-cache</artifactId>
+        <version>2.0.3</version>
     </dependency>
 
+## 2. 修改settings.xml
+在~/.m2/settings.xml中增加設定  
+
+    <profiles>
+		<profile>
+			<id>github</id>
+			<repositories>
+				<repository>
+					<id>github</id>
+					<name>GitHub OWNER Apache Maven Packages</name>
+					<url>https://maven.pkg.github.com/qqdog1/${project.artifactId}</url>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+	<servers>
+		<server>
+			<id>github</id>
+			<username>your own github user name</username>
+			<password>your own github token</password>
+		</server>
+	</servers>
+
+token相關設定請參考Github說明文件[Configuring Apache Maven for use with GitHub Packages](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-apache-maven-for-use-with-github-packages#authenticating-to-github-packages)
+
+# 使用
 ## 1. 建立FileCache
 
     FileCacheManager fileCacheManager = new FileCacheManager("./data/");
