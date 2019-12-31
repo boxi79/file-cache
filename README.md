@@ -29,18 +29,6 @@ Dependency
 ## 2. 修改settings.xml
 在~/.m2/settings.xml中增加設定  
 
-    <profiles>
-		<profile>
-			<id>github</id>
-			<repositories>
-				<repository>
-					<id>github</id>
-					<name>GitHub OWNER Apache Maven Packages</name>
-					<url>https://maven.pkg.github.com/qqdog1/${project.artifactId}</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
 	<servers>
 		<server>
 			<id>github</id>
