@@ -33,13 +33,13 @@
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
-	<scm><url>https://maven.pkg.github.com/qqdog1/file-cache</url></scm>
+	<scm><url>https://maven.pkg.github.com/boxi79/file-cache</url></scm>
 	
 	<distributionManagement>
 	    <repository>
 			<id>github</id>
 			<name>GitHub OWNER Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/qqdog1/file-cache</url>
+			<url>https://maven.pkg.github.com/boxi79/file-cache</url>
 	   	</repository>
 	</distributionManagement>
 </project>
